@@ -76,7 +76,7 @@ def get_timeseries():
     array_3d = t.t2m.values
     lat, lon = t.latitude.values, t.longitude.values
     extent = [lon[0],lon[-1],lat[-1],lat[0]]
-    times = t.time.values.astype("<M8[h]")
+    times = t.time.values.astype("<M8[m]")
     data_name = t.t2m.attrs["long_name"]
     
     return array_3d, extent, times, data_name
@@ -84,7 +84,7 @@ def get_timeseries():
 
 def animate_tutorial_dataset(hours=24):
     from IPython.display import HTML
-    print('A worker is preparing a short animation generated w/ xarray.tutorial.open_dataset("era5-2mt-2019-03-uk.grib")...')
     animation = dask.compute(animate(hours))
+    print('A worker is preparing a short animation generated w/ xarray.tutorial.open_dataset("era5-2mt-2019-03-uk.grib")...')
     show_html = HTML(animation[0].to_jshtml())
     return show_html
